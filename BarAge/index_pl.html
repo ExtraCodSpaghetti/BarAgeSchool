@@ -304,7 +304,8 @@
 
 
 
-                        <form id="contact-form" role="form" method="post" action="form-to-email.php">
+                       <form id="contact-form" role="form" method="post" action="https://api.web3forms.com/submit">
+                          <input type="hidden" name="access_key" value="52a783e1-d416-4f06-9176-dac6bda3fe5e">
                             <div class="col-md-12 col-sm-12">
                                 <input type="text" class="form-control" placeholder="Twoje imię" id="cf-name" name="name" required="">
                             </div>
@@ -487,31 +488,80 @@
         });
     </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Проверяем, показывалось ли уведомление о куках
-            if (!localStorage.getItem('cookieConsent')) {
-                // Если не показывалось, то показываем SweetAlert
-                Swal.fire({
-                    title: 'We use cookies',
-                    text: 'This site uses cookies to improve your browsing experience. By continuing to use the site, you agree to their use.',
-                    icon: 'info',
-                    confirmButtonText: 'Accept',
-                    footer: '<a href="privacy_policy.html">Learn more about cookies</a>',
-                    customClass: {
-                        title: 'swal2-title', // Кастомный класс для заголовка
-                        htmlContainer: 'swal2-html-container', // Кастомный класс для текста
-                        confirmButton: 'swal2-confirm', // Кастомный класс для кнопки
-                        footer: 'swal2-footer' // Кастомный класс для футера
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        localStorage.setItem('cookieConsent', 'true');
-                    }
-                });
-            }
-        });
-    </script>
+   <script>
+       document.addEventListener("DOMContentLoaded", function () {
+           // Проверяем, показывалось ли уведомление о куках
+           if (!localStorage.getItem('cookieConsent')) {
+               // Если не показывалось, то показываем SweetAlert
+               Swal.fire({
+                   title: 'We use cookies',
+                   text: 'This site uses cookies to improve your browsing experience. By continuing to use the site, you agree to their use.',
+                   icon: 'info',
+                   confirmButtonText: 'Accept',
+                   footer: '<a href="privacy_policy.html">Learn more about cookies</a>',
+                   customClass: {
+                       title: 'swal2-title', // Кастомный класс для заголовка
+                       htmlContainer: 'swal2-html-container', // Кастомный класс для текста
+                       confirmButton: 'swal2-confirm', // Кастомный класс для кнопки
+                       footer: 'swal2-footer' // Кастомный класс для футера
+                   }
+               }).then((result) => {
+                   if (result.isConfirmed) {
+                       localStorage.setItem('cookieConsent', 'true');
+                   }
+               });
+           }
+       });
+
+       document.getElementById('contact-form').addEventListener('submit', function (event) {
+           event.preventDefault();  // Предотвращаем стандартное поведение формы
+
+           const form = event.target;
+           const formData = new FormData(form);
+
+           fetch(form.action, {
+               method: form.method,
+               body: formData,
+               headers: {
+                   'Accept': 'application/json'
+               }
+           })
+               .then(response => {
+                   if (response.ok) {
+                       // Показываем SweetAlert уведомление об успешной отправке
+                       Swal.fire({
+                           icon: 'success',
+                           title: 'Dziękuję!',
+                           text: 'Wiadomość została wysłana!',
+                           confirmButtonText: 'ОК'
+                       });
+                       form.reset();  // Очистка формы
+                   } else {
+                       // Показываем SweetAlert уведомление об ошибке
+                       Swal.fire({
+                           icon: 'error',
+                           title: 'Błąd',
+                           text: 'Wystąpił błąd podczas wysyłania wiadomości.',
+                           confirmButtonText: 'ОК'
+                       });
+                   }
+               })
+               .catch(() => {
+                   // Показываем SweetAlert уведомление об ошибке, если запрос не удался
+                   Swal.fire({
+                       icon: 'error',
+                       title: 'Błąd',
+                       text: 'Wystąpił błąd podczas wysyłania wiadomości.',
+                       confirmButtonText: 'ОК'
+                   });
+               });
+       });
+
+       window.onload = function () {
+           // Reset the form fields when the page loads
+           document.getElementById("form").reset();
+       };
+   </script>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
