@@ -1477,44 +1477,58 @@ label, a { /*при наведении на стрелки или переключатели - курсор изменится*/
     }
 
 
-    .parallax-img {
-        min-height: 350px;
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        position: relative; /* Добавлено для позиционирования псевдоэлемента */
+.parallax-container {
+    background: url('../images/bar_botle.jpg') no-repeat 50% 800%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 20px;
+    background-size: 250vh;
+}
+
+.parallax-content {
+    color: white;
+    z-index: 1; /* Чтобы контент был поверх фона */
+    position: relative;
+}
+
+.text-container {
+    max-width: 800px;
+    margin: 0 10px;
+}
+
+
+
+.parallax-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный слой поверх фона */
+    z-index: 0; /* Позади контента */
+    border-radius: 20px;
+
+    transform: translateY(0); /* Начальная позиция изображения */
+    transition: transform 0.5s ease-out; /* Плавное изменение позиции при скроллинге */
+   
+}
+
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 767px) {
+    .parallax-container {
+        /*background-attachment: scroll;*/ /* На мобильных можно отключить fixed фон */
+        /*padding: 40px 0;*/
+        background-size: 400%;
     }
-
-        .parallax-img::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7); /* Цвет и прозрачность вашего слоя */
-            border-radius: 20px;
-        }
-
-        .parallax-img h2,
-        .parallax-img a,
-        .parallax-img h3 {
-            color: white; /* Устанавливаем белый цвет для текста */
-            position: relative; /* Необходимо для корректного отображения наложенных элементов */
-            z-index: 1; /* Чтобы текст оставался над слоем */
-        }
-
-    .parallax-img {
-        background-image: url('../images/bar_botle.jpg'); /* Путь к вашему изображению в папке img */
-    }
-
-    @media (min-width: 768px) {
-        .parallax-img {
-            padding-top: 10px;
-            margin-top: 20px;
-        }
-    }
+}
 
     @media (max-width: 767px) {
         .about-image {
@@ -1561,4 +1575,13 @@ label, a { /*при наведении на стрелки или переключатели - курсор изменится*/
         height: 600px; /* Фиксированная высота */
         object-fit: cover; /* Чтобы изображение масштабировалось и не искажалось */
     }
+}
+
+#bottom {
+    margin-bottom: 40px;
+}
+
+.container-fluid {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
