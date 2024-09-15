@@ -66,3 +66,44 @@
     });  
 
 })(jQuery);
+
+jQuery(document).ready(function ($) {
+    var isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/.test(navigator.userAgent);
+
+    if (isMobileDevice) {
+        function isInViewport(elem) {
+            var elementTop = elem.offset().top,
+                elementBottom = elementTop + elem.outerHeight(),
+                viewportTop = $(window).scrollTop(),
+                viewportBottom = viewportTop + $(window).height();
+            return elementBottom > viewportTop && elementTop < viewportBottom;
+        }
+
+        function applyParallax() {
+            $(".parallax-img").each(function () {
+                var $thisParent = $(this);
+
+                if (isInViewport($thisParent)) {
+                    var elementTop = $thisParent.offset().top,
+                        parallaxHeight = $(window).height(),
+                        bgHeight = 0.3 * $(window).height() + parallaxHeight,
+                        mainPosition = "translate(0, " + (0.3 * ($(window).scrollTop() + $(window).height() - elementTop)) + "px)";
+
+                    $thisParent.css({
+                        height: bgHeight,
+                        "-webkit-transform": mainPosition,
+                        "-moz-transform": mainPosition,
+                        "-ms-transform": mainPosition,
+                        "transform": mainPosition
+                    });
+                }
+            });
+        }
+
+        $(window).on('scroll', function () {
+            requestAnimationFrame(applyParallax);
+        });
+
+        applyParallax();
+    }
+});
