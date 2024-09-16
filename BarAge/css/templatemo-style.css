@@ -1293,6 +1293,25 @@ h4 {
     }
 }
 
+/* Initially hide both classes */
+#payinfo, #payinfo1 {
+    display: none;
+}
+
+/* Show .payinfo1 on screens up to 500px */
+@media (max-width: 580px) {
+    #payinfo1 {
+        display: block;
+    }
+}
+
+/* Show .payinfo on screens 501px and above */
+@media (min-width: 581px) {
+    #payinfo {
+        display: block;
+    }
+}
+
 
 #slider { /*положение слайдера*/
     position: relative;
@@ -1489,7 +1508,7 @@ label, a { /*при наведении на стрелки или переключатели - курсор изменится*/
 
 
 .parallax-container {
-    background: url('../images/bar_botle.jpg') no-repeat 50% 800%;
+    background: url('../images/bar_botle.jpg') no-repeat 50% 600%;
     background-size: cover;
     display: flex;
     justify-content: center;
