@@ -68,3 +68,17 @@
 })(jQuery);
 
 
+window.addEventListener('scroll', function () {
+    const parallax = document.querySelector('.parallax-container');
+    const parallaxOffset = parallax.offsetTop;
+    const scrollPosition = window.pageYOffset;
+    const windowHeight = window.innerHeight;
+
+    // Проверяем, когда элемент войдет в область видимости
+    if (scrollPosition + windowHeight > parallaxOffset) {
+        // Изменяем позицию фона на основе прокрутки
+        let backgroundPositionY = (scrollPosition - parallaxOffset) * 0.5; // Уменьшаем скорость прокрутки
+        parallax.style.backgroundPosition = 'center ' + backgroundPositionY + 'px';
+    }
+});
+

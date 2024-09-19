@@ -58,6 +58,20 @@ h4 {
     font-weight: 500;
   }
 
+/* По умолчанию заголовок h1 */
+#ebanijText {
+    font-size: 3em;
+}
+
+/* Если ширина экрана меньше или равна 360 пикселей, используем h2 стиль */
+@media (max-width: 415px) {
+    #ebanijText {
+        font-size: 2em; /* Заменяем размер шрифта для h2 */
+    }
+}
+
+
+
 
   /*---------------------------------------
      GENERAL               
@@ -1146,6 +1160,32 @@ h4 {
     }
 }
 
+@media (min-width: 767px) {
+    #special1 {
+        display: none;
+    }
+
+    .col-md-7.col-sm-6 #special1 {
+        display: block;
+    }
+}
+
+@media (max-width: 766px) {
+    .col-md-12.col-sm-6 #special1 {
+        display: block;
+    }
+}
+
+#special {
+    display: none;
+}
+
+@media (min-width: 767px) {
+    #special {
+        display: block;
+    }
+}
+
 .card__content {
     position: relative;
     background-color: #fff;
@@ -1508,8 +1548,6 @@ label, a { /*при наведении на стрелки или переключатели - курсор изменится*/
 
 
 .parallax-container {
-    background: url('../images/bar_botle.jpg') no-repeat 50% 600%;
-    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1518,12 +1556,15 @@ label, a { /*при наведении на стрелки или переключатели - курсор изменится*/
     overflow: hidden;
     text-align: center;
     border-radius: 20px;
-    background-size: 250vh;
+    background: url('../images/bar_botle.jpg') no-repeat center; /* Центрируем фон */
+    background-size: cover; /* Масштабирование фона */
+    background-attachment: scroll; /* Фон движется вместе с прокруткой */
+    background-size: 120%;
 }
 
 .parallax-content {
     color: white;
-    z-index: 1; /* Чтобы контент был поверх фона */
+    z-index: 1;
     position: relative;
 }
 
@@ -1531,8 +1572,6 @@ label, a { /*при наведении на стрелки или переключатели - курсор изменится*/
     max-width: 800px;
     margin: 0 10px;
 }
-
-
 
 .parallax-container::before {
     content: "";
@@ -1542,20 +1581,23 @@ label, a { /*при наведении на стрелки или переключатели - курсор изменится*/
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7); /* Полупрозрачный слой поверх фона */
-    z-index: 0; /* Позади контента */
+    z-index: 0;
     border-radius: 20px;
-
-    transform: translateY(0); /* Начальная позиция изображения */
-    transition: transform 0.5s ease-out; /* Плавное изменение позиции при скроллинге */
-   
 }
 
 
-/* Адаптация для мобильных устройств */
 @media (max-width: 767px) {
     .parallax-container {
-        /*background-attachment: scroll;*/ /* На мобильных можно отключить fixed фон */
-        /*padding: 40px 0;*/
+        background-position: center center;
+        background-size: cover;
+        background-size: 300%;
+    }
+}
+
+@media (max-width: 460px) {
+    .parallax-container {
+        background-position: center center;
+        background-size: cover;
         background-size: 400%;
     }
 }
